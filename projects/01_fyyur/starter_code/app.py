@@ -157,7 +157,7 @@ def show_venue(venue_id):
   current_time = datetime.now()
   past_shows = venue.shows.filter(Show.start_time < current_time).order_by('artist_id').all()
   upcoming_shows = venue.shows.filter(Show.start_time > current_time).order_by('artist_id').all()
-  
+  print(venue.genres)
   data = {
     "id": venue.id,
     "name": venue.name,
@@ -197,6 +197,8 @@ def create_venue_submission():
   venueName = request.form['name']
   seekingTalent = True if (request.form.get('seeking_talent') == 'y') else False
 
+  for item in request.form.get('genres'):
+    print(item)
   try:
     venue = Venue (
       venueName,
@@ -204,7 +206,7 @@ def create_venue_submission():
       request.form.get('state'),
       request.form.get('address'),
       request.form.get('phone'),
-      request.form.get('genres'),
+      request.form.getlist('genres'),
       request.form.get('facebook_link'),
       request.form.get('image_link'),
       request.form.get('website_link'),
@@ -289,6 +291,7 @@ def show_artist(artist_id):
   current_time = datetime.now()
   past_shows = artist.shows_art.filter(Show.start_time < current_time).all()
   upcoming_shows = artist.shows_art.filter(Show.start_time > current_time).all()
+  print(artist.genres)
   data = {
     "id": artist.id,
     "name": artist.name,
@@ -327,17 +330,19 @@ def edit_artist(artist_id):
 @app.route('/artists/<int:artist_id>/edit', methods=['POST'])
 def edit_artist_submission(artist_id):
 
+  seekingVenue = True if (request.form.get('seeking_venue') == 'y') else False
+
   try:
     artist = Artist.query.get(artist_id)
     artist.name = request.form.get('name')
     artist.city = request.form.get('city')
     artist.state = request.form.get('state')
     artist.phone = request.form.get('phone')
-    artist.genres = request.form.get('genres')
+    artist.genres = request.form.getlist('genres')
     artist.facebook_link = request.form.get('facebook_link')
     artist.image_link = request.form.get('image_link')
     artist.website = request.form.get('website_link')
-    artist.seeking_venue = request.form.get('seeking_venue')
+    artist.seeking_venue = seekingVenue
     artist.seeking_description = request.form.get('seeking_description')
 
     db.session.commit()
@@ -360,9 +365,9 @@ def edit_venue(venue_id):
 
 @app.route('/venues/<int:venue_id>/edit', methods=['POST'])
 def edit_venue_submission(venue_id):
-  #have to fix problem with genre not being passed down properly 
   
-  print(len(request.form.get('genres')))
+  seekingTalent = True if (request.form.get('seeking_talent') == 'y') else False
+
   try:
     venue = Venue.query.get(venue_id)
     venue.name = request.form.get('name')
@@ -370,11 +375,11 @@ def edit_venue_submission(venue_id):
     venue.state = request.form.get('state')
     venue.address = request.form.get('address')
     venue.phone = request.form.get('phone')
-    venue.genres = request.form.get('genres')
+    venue.genres = request.form.getlist('genres')
     venue.facebook_link = request.form.get('facebook_link')
     venue.image_link = request.form.get('image_link')
     venue.website = request.form.get('website_link')
-    venue.seeking_talent = request.form.get('seeking_talent')
+    venue.seeking_talent = seekingTalent
     venue.seeking_description = request.form.get('seeking_description')
 
     db.session.commit()
@@ -405,7 +410,7 @@ def create_artist_submission():
       request.form.get('city'),
       request.form.get('state'),
       request.form.get('phone'),
-      request.form.get('genres'),
+      request.form.getlist('genres'),
       request.form.get('facebook_link'),
       request.form.get('image_link'),
       request.form.get('website_link'),
