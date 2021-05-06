@@ -52,7 +52,8 @@ app.jinja_env.filters['datetime'] = format_datetime
 #----------------------------------------------------------------------------#
 
 def assign_artist_data_to_past_shows(data, show):
-    artist = Artist.query.filter_by(id=show.artist_id).first()
+    artist = db.session.query(Artist).join(Show, Artist.id==show.artist_id).first()
+    print(artist)
     data["past_shows"].append({
       "artist_id": artist.id,
       "artist_name": artist.name,
@@ -68,7 +69,7 @@ def assign_artist_data_to_upcoming_shows(data, show):
       "start_time": show.start_time.strftime('%Y-%m-%d %H:%M:%S')
     })
 def assign_venue_data_to_past_shows(data, show):
-    venue = Venue.query.filter_by(id=show.venue_id).first()
+    venue = db.session.query(Venue).join(Show, Venue.id==show.venue_id).first()
     data["past_shows"].append({
       "venue_id": venue.id,
       "venue_name": venue.name,
