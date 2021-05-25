@@ -57,25 +57,161 @@ One note before you delve into your tasks: for each endpoint you are expected to
 
 ## REVIEW_COMMENT
 ```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
 
 Endpoints
-GET '/api/v1.0/categories'
-GET ...
-POST ...
-DELETE ...
+*GET* `/questions`
+*GET* `/categories`
+*POST* `/questions` 
+*DELETE* `/questions/{id}`
+*POST* `/questions/search`
+*GET* `/categories/{id}/questions`
+*POST* `/quizzes`
 
-GET '/api/v1.0/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
-- Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
-
+*GET* `/questions`
+- Retrieves all trivia questions
+- Request parameters/body: None
+- Sample response body
+```
+{
+  "questions": [
+      {
+          "id": 1,
+          "question": "Who killed Abraham Lincoln?",
+          "answer": "John Wilkes Booth",
+          "difficulty": 1,
+          "category": 4
+      }
+  ],
+  "total_questions": 1,
+  "categories": {
+      1: "Science",
+      2: "Art",
+      3: "Geography",
+      4: "History",
+      5: "Entertainment",
+      6: "Sports"
+  },
+  "current_category": None
+}
+```
+*GET* `/categories`
+- Retrieves all trivia categories
+- Request parameters/body: None
+- Sample response body
+```
+{
+  "categories": {
+      1: "Science",
+      2: "Art",
+      3: "Geography",
+      4: "History",
+      5: "Entertainment",
+      6: "Sports"
+  }
+}
+```
+*POST* `/questions` 
+- Create a trivia question in a specified category
+- Sample request body
+```
+{
+  "question": "Who founded Disney?",
+  "answer": "Walt Disney",
+  "difficulty": "1",
+  "category": "5"
+}
+```
+- Sample response body
+```
+{
+    "success": True
+}
+```
+*DELETE* `/questions/{id}`
+- Delete a trivia question 
+- Request parameters: question id (int)
+- Sample response body
+```
+{
+    "success": True
+}
+```
+*POST* `/questions/search`
+- Search for a question
+- Sample request body
+```
+{
+    "searchTerm": "name"
+}
+```
+- Sample response body
+```
+{
+    "questions": [
+        {
+            "id": 5,
+            "question": "What's the name of the city of love?",
+            "answer": "Paris",
+            "difficulty": 1,
+            "category": 3
+        }
+        
+    ],
+    "total_questions": 1,
+    "current_category": None
+}
+```
+*GET* `/categories/{id}/questions`
+- Retrieve all trivia questions for a specified category
+- Request parameters: category id (int)
+- Sample response body 
+```
+{
+    "questions": [
+        {
+            "id": 10,
+            "question": "What sport is NFL?",
+            "answer": "Football",
+            "difficulty": 1,
+            "category": 6
+        }
+        
+    ],
+    "total_questions": 1,
+    "current_category": "Sports"
+}
+```
+*POST* `/quizzes`
+- Retrieve next quiz question
+- Sample request body
+```
+{
+    "previous_questions": [
+        {
+            "id": 10
+        },
+        {
+            "id": 11
+        },
+        {
+            "id": 12
+        }
+    ],
+    "quiz_category": 6
+}
+```
+- Sample response body
+```
+{
+    "question": {
+        "id": 17,
+        "question": "What is the translation of Karate?",
+        "answer": "Empty Hand",
+        "difficulty": 1,
+        "category": 6
+    }
+}
+```
 ```
 
 
