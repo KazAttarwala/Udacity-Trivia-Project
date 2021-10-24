@@ -16,7 +16,7 @@ QUESTIONS_PER_PAGE = 10
 
 def create_app(test_config=None):
   # create and configure the app
-  app = Flask(__name__)
+  app = Flask(__name__, static_folder='../../frontend/build', static_url_path='/')
   setup_db(app)
   
   '''
@@ -42,6 +42,10 @@ def create_app(test_config=None):
     current_questions = questions[start:end]
 
     return current_questions
+
+  @app.route('/')
+  def index():
+    return app.send_static_file('index.html')
 
   '''
   @TODO: 
