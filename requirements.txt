@@ -1,7 +1,6 @@
 alabaster==0.7.12
 alembic==1.5.8
 anaconda-client
-anaconda-navigator
 anaconda-project
 aniso8601==6.0.0
 appdirs==1.4.4
