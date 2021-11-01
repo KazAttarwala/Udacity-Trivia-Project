@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from flask_cors import CORS
@@ -45,7 +45,7 @@ def create_app(test_config=None):
 
   @app.route('/')
   def index():
-    return app.send_static_file('index.html')
+    return send_from_directory(app.static_folder, 'index.html')
 
   '''
   @TODO: 
