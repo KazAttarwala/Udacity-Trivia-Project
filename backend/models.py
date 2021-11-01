@@ -3,8 +3,14 @@ from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_name = "trivia"
-database_path = "postgres://{}/{}".format('localhost:5432', database_name)
+# Local Dev DB path
+# database_name = "trivia"
+# database_path = "postgres://{}/{}".format('localhost:5432', database_name)
+
+# Heroku db path
+database_path = os.getenv("DATABASE_URL")
+if database_path.startswith("postgres://"):
+    database_path = database_path.replace("postgres://", "postgresql://", 1)
 
 db = SQLAlchemy()
 
