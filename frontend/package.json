@@ -1,5 +1,5 @@
 {
-  "name": "trivia-app",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "proxy": "https://udacity-trivia-game-app.herokuapp.com",
