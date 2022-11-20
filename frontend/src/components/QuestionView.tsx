@@ -38,7 +38,7 @@ class QuestionView extends Component<IState>{
                 })
                 return;
             },
-            error: (error) => {
+            error: () => {
                 alert('Unable to load questions. Please try your request again')
                 return;
             }
@@ -75,7 +75,7 @@ class QuestionView extends Component<IState>{
                 })
                 return;
             },
-            error: (error) => {
+            error: () => {
                 alert('Unable to load questions. Please try your request again')
                 return;
             }
@@ -101,7 +101,7 @@ class QuestionView extends Component<IState>{
                 })
                 return;
             },
-            error: (error) => {
+            error: () => {
                 alert('Unable to load questions. Please try your request again')
                 return;
             }
@@ -114,10 +114,10 @@ class QuestionView extends Component<IState>{
                 $.ajax({
                     url: `/questions/${id}`, //TODO: update request URL
                     type: "DELETE",
-                    success: (result) => {
+                    success: () => {
                         this.getQuestions();
                     },
-                    error: (error) => {
+                    error: () => {
                         alert('Unable to load questions. Please try your request again')
                         return;
                     }
@@ -143,7 +143,7 @@ class QuestionView extends Component<IState>{
                 </div>
                 <div className="questions-list">
                     <h2>Questions</h2>
-                    {this.state.questions.map((q, ind) => (
+                    {this.state.questions.map((q) => (
                         <Question
                             key={q.id}
                             question={q.question}

@@ -1,4 +1,4 @@
-import $, { event } from 'jquery';
+import $ from 'jquery';
 import React, { Component, FormEvent } from 'react';
 import '../stylesheets/QuizView.css';
 import { FixMeLater } from './FormView';
@@ -40,7 +40,7 @@ class QuizView extends Component<IProps, IState> {
                 this.setState({ categories: result.categories })
                 return;
             },
-            error: (error) => {
+            error: () => {
                 alert('Unable to load categories. Please try your request again')
                 return;
             }
@@ -82,7 +82,7 @@ class QuizView extends Component<IProps, IState> {
                 })
                 return;
             },
-            error: (error) => {
+            error: () => {
                 alert('Unable to load question. Please try your request again')
                 return;
             }
@@ -91,7 +91,6 @@ class QuizView extends Component<IProps, IState> {
 
     submitGuess = (event: FormEvent) => {
         event.preventDefault();
-        const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase()
         let evaluate = this.evaluateAnswer()
         this.setState({
             numCorrect: !evaluate ? this.state.numCorrect : this.state.numCorrect + 1,
@@ -121,7 +120,6 @@ class QuizView extends Component<IProps, IState> {
                         return (
                             <div
                                 key={id}
-                                //value={id}
                                 className="play-category"
                                 onClick={() => this.selectCategory({ type: this.state.categories[id], id })}>
                                 {this.state.categories[id]}
@@ -149,7 +147,6 @@ class QuizView extends Component<IProps, IState> {
     }
 
     renderCorrectAnswer() {
-        const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase()
         let evaluate = this.evaluateAnswer()
         return (
             <div className="quiz-play-holder">
