@@ -4,7 +4,7 @@ import '../stylesheets/Header.css';
 
 class Header extends Component {
 
-  navTo(uri){
+  navTo(uri: string){
     window.location.href = window.location.origin + uri;
   }
 

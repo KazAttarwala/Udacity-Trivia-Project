@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
     <div className="App">
-      <Header path />
+      <Header />
       <Router>
         <Switch>
           <Route path="/" exact component={QuestionView} />
